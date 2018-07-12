@@ -5,28 +5,25 @@
  */
 function commerce_order_email_token_info() {
   $types['commerce_order_item_table'] = [
-    'name' => t('Таблица товаров в заказе'),
-    'description' => t('Вывод позиций в заказе'),
+    'name' => t('Table ordre item'),
+    'description' => t('Render table products data from order item'),
   ];
 
   $token['label'] = [
-    'name' => t('Имя поля'),
-    'description' => t('Вместо label введите машинное имя поля товара которое будет выводится как название товара, по умолчанию label'),
+    'name' => t('Field name'),
+    'description' => t('Replace "label" by you field name'),
   ];
 
   $token_shipping['shipping_information:label'] = [
-    'name' => t('Вывод имени метода доставки'),
-    'description' => t('Токен выведен имя выбранного метода доскавки'),
+    'name' => t('Show label shipping metod'),
   ];
 
   $token_shipping['shipping_information:price'] = [
-    'name' => t('Вывод стоимости метода доставки'),
-    'description' => t('Токен выведен стоимость выбранного метода доскавки'),
+    'name' => t('Show price sipping method'),
   ];
 
   $token_shipping['shipping_information:date_delivery'] = [
-    'name' => t('Вывод срока доставки метода доставки'),
-    'description' => t('Токен выведен срок доставки выбранного метода доскавки'),
+    'name' => t('Show date delivery shipping method'),
   ];
 
   return [
