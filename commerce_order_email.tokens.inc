@@ -5,7 +5,7 @@
  */
 function commerce_order_email_token_info() {
   $types['commerce_order_item_table'] = [
-    'name' => t('Table ordre item'),
+    'name' => t('Table order items'),
     'description' => t('Render table products data from order item'),
   ];
 
