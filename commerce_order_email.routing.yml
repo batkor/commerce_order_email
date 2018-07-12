@@ -8,4 +8,3 @@ entity.commerce_order_type.email_edit_form:
     _permission: 'view own commerce_order'
   options:
     _admin_route: TRUE
-

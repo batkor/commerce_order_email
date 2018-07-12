@@ -1,0 +1,30 @@
+description: |
+  <pre>
+    /**
+     * @file
+     * Template for the order receipt.
+     *
+     * Available variables:
+     * - order_entity: The order entity.
+     * - billing_information: The rendered billing information.
+     * - shipping_information: Array of configuration variable from shipping metod.
+     *   - label: Label shipping metod.
+     *   - price: Price array shipping metod.
+     *     - number: Price array shipping metod.
+     *   - date_delivery: Date delivery shipping metod.
+     * - payment_method: Array of configuration variable from payment metod.
+     *   - display_label: Label payment metod.
+     *   - mode: label payment metod.
+     *   - instructions: Instructions payment metod.
+     *     - value: Instructions payment metod.
+     * - totals: An array of order totals values with the following keys:
+     *   - subtotal: The order subtotal price.
+     *   - adjustments: An array of adjustment totals:
+     *     - type: The adjustment type.
+     *     - label: The adjustment label.
+     *     - total: The adjustment total price.
+     *     - weight: The adjustment weight, taken from the adjustment type.
+     *   - total: The order total price.
+     *
+     */
+  </pre>

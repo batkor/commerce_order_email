@@ -59,20 +59,16 @@ class CommerceOrderEmailReceiptSubscriber extends OrderReceiptSubscriber {
       $langcode = $this->languageManager->getDefaultLanguage()->getId();
     }
 
-    $token = \Drupal::token();
-    $token_alias = $commerce_order_email['value'];
-    $data = [
-      'commerce_order' => $order,
-      'commerce_order_items' => $order->getItems(),
-    ];
-
-    $email_body = $token->replace($token_alias, $data, ['clear' => TRUE]);
-
     $build = [
-      '#type' => 'processed_text',
-      '#text' => $email_body,
-      '#format' => $commerce_order_email['format'],
-      '#langcode' => $langcode,
+      '#type' => 'inline_template',
+      '#template' => $commerce_order_email,
+      '#context' => [
+        'order_entity' => $order,
+        'billing_information' => $this->profileViewBuilder->view($order->getBillingProfile()),
+        'totals' => $this->orderTotalSummary->buildTotals($order),
+        'shipping_information' => $this->getShippingConfigField($order),
+        'payment_method' => $this->getGatewayConfigField($order),
+      ],
     ];
 
     $params['body'] = $this->renderer->executeInRenderContext(new RenderContext(), function () use ($build) {
@@ -81,4 +77,39 @@ class CommerceOrderEmailReceiptSubscriber extends OrderReceiptSubscriber {
 
     $this->mailManager->mail('commerce_order', 'receipt', $to, $langcode, $params);
   }
+
+  /**
+   * @param \Drupal\commerce_order\Entity\OrderInterface $order
+   * @return array
+   */
+  protected function getShippingConfigField($order){
+    $shippings = $order->get('shipments')->referencedEntities();
+    $shipping_config = [];
+    if (!empty($shippings)) {
+      /** @var \Drupal\commerce_shipping\Entity\Shipment $shipping */
+      foreach ($shippings as $shipping) {
+        $shipping_metod = $shipping->getShippingMethod();
+        $shipping_config = $shipping_metod->getPlugin()->getConfiguration();
+      }
+    }
+    return $shipping_config;
+  }
+
+  /**
+   * @param \Drupal\commerce_order\Entity\OrderInterface $order
+   * @return array
+   */
+  protected function getGatewayConfigField($order){
+    $payment_gateways = $order->get('payment_gateway')->referencedEntities();
+    $payment_gateway_config = [];
+    if (!empty($payment_gateways)) {
+      /** @var \Drupal\commerce_payment\Entity\PaymentGateway $payment_gateway */
+      foreach ($payment_gateways as $payment_gateway) {
+        $payment_gateway_config = $payment_gateway->getPlugin()
+          ->getConfiguration();
+      }
+    }
+    return $payment_gateway_config;
+  }
+
 }

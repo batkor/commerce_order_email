@@ -1,0 +1,4 @@
+editor_variation:
+  version: VERSION
+  js:
+    assets/commerce_order_email.js: {}
