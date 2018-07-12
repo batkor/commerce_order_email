@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains commerce_order_email.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function commerce_order_email_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the commerce_order_email module.
+    case 'help.page.commerce_order_email':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Adds a configuration page for the order email') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function commerce_order_email_entity_operation_alter(array &$operations, \Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity instanceof \Drupal\commerce_order\Entity\OrderType) {
+    $operations['commerce_order_email'] = [
+      'title' => t('Settings email'),
+      'weight' => 50,
+      'url' => \Drupal\Core\Url::fromRoute('entity.commerce_order_type.email_edit_form', ['commerce_order_type' => $entity->id()]),
+    ];
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function commerce_order_email_theme($existing, $type, $theme, $path) {
+  return [
+    'commerce_order_items_table' => [
+      'variables' => ['order_items' => NULL],
+    ],
+  ];
+}

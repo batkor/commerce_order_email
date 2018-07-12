@@ -1,0 +1,5 @@
+commerce_order_email.email_edit_tab:
+  title: 'Settings email'
+  route_name: entity.commerce_order_type.email_edit_form
+  base_route: entity.commerce_order_type.edit_form
+  weight: 200

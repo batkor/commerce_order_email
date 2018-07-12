@@ -1,0 +1,11 @@
+
+entity.commerce_order_type.email_edit_form:
+  path: '/admin/commerce/config/order-types/{commerce_order_type}/email_edit'
+  defaults:
+    _form: '\Drupal\commerce_order_email\Form\CommerceOrderEmailEditForm'
+    _title: 'CommerceOrderEmailEditForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

@@ -1,0 +1,5 @@
+name: Commerce order email
+type: module
+description: Adds a configuration page for the order email
+core: 8.x
+package: Custom

@@ -1,0 +1,15 @@
+<table style="padding-top: 15px; padding-bottom:15px; width: 100%">
+  <tbody style="text-align: left;">
+  {% for order_item in order_items %}
+    <tr>
+      <td>
+        {{ order_item.qty|number_format }} x
+      </td>
+      <td>
+        <span>{{ order_item.label }}</span>
+        <span style="float: right;">{{ order_item.total_price|commerce_price_format }}</span>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
