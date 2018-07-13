@@ -84,6 +84,7 @@ class CommerceOrderEmailEditForm extends ConfigFormBase {
       $form['main']['right']['preview_details']['preview_submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Preview'),
+        '#submit' => [$this, 'previewEmailSubmit'],
         '#ajax' => [
           'callback' => [$this, 'previewEmailCallback'],
         ],
@@ -130,6 +131,10 @@ class CommerceOrderEmailEditForm extends ConfigFormBase {
       $commerce_order_type->setThirdPartySetting('commerce_order_email', 'email', $form_state->getValue('email'));
       $commerce_order_type->save();
     }
+  }
+
+  public function previewEmailSubmit(array &$form, FormStateInterface $form_state){
+    return;
   }
 
   public function previewEmailCallback(array &$form, FormStateInterface $form_state) {
